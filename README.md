@@ -1,3 +1,5 @@
+Many thanks to BMan and BitcoinZ community for this repository. 
+
 # wallet.getbze.com
 BZEdge is based on Bitcoin + zkSNARKs and is a decentralized CDD.
 
