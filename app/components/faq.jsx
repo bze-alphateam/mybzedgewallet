@@ -14,12 +14,12 @@ export default class ZFaq extends React.Component {
 
             <p>
               <b>Q: How is this secure? Its on a web browser!</b><br/>
-              A: This wallet has replicated the core features of the BitcoinZ daemon in JavaScript! So the process of creating and signing the transactions are all done within the browser. No sensitive information is sent through the network.
+              A: This wallet has replicated the core features of the BZEdge daemon in JavaScript! So the process of creating and signing the transactions are all done within the browser. No sensitive information is sent through the network.
             </p>
 
             <p>
               <b>Q: Can I have the source code?</b><br/>
-              A: <a href="https://github.com/egyptianbman/mybitcoinzwallet">Here you go</a>
+              A: <a href="https://github.com/BZEdge/mybzedgewallet">Here you go</a>
             </p>
 
             <p>

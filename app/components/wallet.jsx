@@ -223,8 +223,8 @@ class ZWalletUnlockKey extends React.Component {
                 />
               </Label>
               <FormText color="muted">
-                For Windows, it should be in %APPDATA%/bitcoinz<br/>
-                For Mac/Linux, it should be in ~/.bitcoinz
+                For Windows, it should be in %APPDATA%/bzedge<br/>
+                For Mac/Linux, it should be in ~/.bzedge
               </FormText>
             </Col>
           </FormGroup>
@@ -286,7 +286,7 @@ class ZWalletSettings extends React.Component {
   render () {
     return (
       <Modal isOpen={this.props.settings.showSettings} toggle={this.props.toggleModalSettings}>
-        <ModalHeader toggle={this.props.toggleShowSettings}>BitcoinZ Wallet Settings</ModalHeader>
+        <ModalHeader toggle={this.props.toggleShowSettings}>BZEdge Wallet Settings</ModalHeader>
         <ModalBody>
           <ZWalletSelectUnlockType
               setUnlockType={this.props.setUnlockType}
@@ -663,7 +663,7 @@ class ZSendZEN extends React.Component {
           // If we don't have enough address
           // fail and tell user
           if (satoshisSoFar < satoshisToSend + satoshisfeesToSend){
-            this.setSendErrorMessage('Not enough confirmed BTCZ in account to perform transaction')
+            this.setSendErrorMessage('Not enough confirmed BZE in account to perform transaction')
             this.setProgressValue(0)
           }
 
@@ -713,7 +713,7 @@ class ZSendZEN extends React.Component {
       var zentx = zenwalletutils.urlAppend(this.props.settings.explorerURL, 'tx/') + this.state.sentTxid
       zenTxLink = (
         <Alert color="success">
-        <strong>BTCZ successfully sent!</strong> <a href={zentx} target="_blank">Click here to view your transaction</a>
+        <strong>BZE successfully sent!</strong> <a href={zentx} target="_blank">Click here to view your transaction</a>
         </Alert>
       )
     }
@@ -749,7 +749,7 @@ class ZSendZEN extends React.Component {
         <Col>
           <Card>
             <CardBlock>
-              <Alert color="danger">ALWAYS VALIDATE YOUR DESINATION ADDRESS BY SENDING SMALL AMOUNTS OF BTCZ FIRST</Alert>
+              <Alert color="danger">ALWAYS VALIDATE YOUR DESINATION ADDRESS BY SENDING SMALL AMOUNTS OF BZE FIRST</Alert>
               <InputGroup>
                 <InputGroupAddon>From Address</InputGroupAddon>
                 <Input type="select" onChange={this.handleUpdateSelectedAddress}>
@@ -773,7 +773,7 @@ class ZSendZEN extends React.Component {
               <FormGroup check>
                 <Label check>
                   <Input onChange={this.handleCheckChanged} type="checkbox" />{' '}
-                  Yes, I would like to send these BTCZ
+                  Yes, I would like to send these BZE
                 </Label>
               </FormGroup>
               <br/>
@@ -911,7 +911,7 @@ class ZWalletTabs extends React.Component {
     var now = new Date();
     now = now.toISOString().split('.')[0]+'Z';
 
-    var fileStr = '# Wallet dump created by myBitcoinZwallet ' + pjson.version + '\n'
+    var fileStr = '# Wallet dump created by myBZEdgeWallet ' + pjson.version + '\n'
     fileStr += '# Created on ' + now + '\n\n\n'
 
     Object.keys(this.props.publicAddresses).forEach(function(key) {
@@ -921,7 +921,7 @@ class ZWalletTabs extends React.Component {
     }.bind(this))
 
     const pkBlob = new Blob([fileStr], {type: 'text/plain;charset=utf-8'})
-    FileSaver.saveAs(pkBlob, now + '_mybitcoinzwallet_private_keys.txt')
+    FileSaver.saveAs(pkBlob, now + '_mybzedgewallet_private_keys.txt')
   }
 
   render () {
@@ -941,7 +941,7 @@ class ZWalletTabs extends React.Component {
               className={classnames({ active: this.state.activeTab === '2' })}
               onClick={() => { this.toggleTabs('2'); }}
             >
-              Send BTCZ
+              Send BZE
             </NavLink>
           </NavItem>
           <NavItem>
@@ -1013,8 +1013,8 @@ export default class ZWallet extends React.Component {
         showSettings: false,
         showWalletGen: false,
         compressPubKey: true,
-        insightAPI: 'https://explorer.btcz.rocks/api/',
-        explorerURL: 'https://explorer.btcz.rocks/',
+        insightAPI: 'https://explorer.bzedge.org/insight-api-btcz/',
+        explorerURL: 'https://explorer.bzedge.org/',
         useTestNet: false,
         unlockType: UNLOCK_WALLET_TYPE.HD_WALLET
       }
@@ -1147,12 +1147,12 @@ export default class ZWallet extends React.Component {
     _settings.useTestNet = !_settings.useTestNet
 
     if (_settings.useTestNet){
-      _settings.insightAPI = 'https://explorer.btcz.rocks/insight-api-zcash/'
-      _settings.explorerURL = 'https://explorer.btcz.rocks/'
+      _settings.insightAPI = 'https://explorer.bzedge.org/insight-api-btcz/'
+      _settings.explorerURL = 'https://explorer.bzedge.org/'
     }
     else{
-      _settings.insightAPI = 'https://explorer.btcz.rocks/insight-api-zcash/'
-      _settings.explorerURL = 'https://explorer.btcz.rocks/'
+      _settings.insightAPI = 'https://explorer.bzedge.org/insight-api-btcz/'
+      _settings.explorerURL = 'https://explorer.bzedge.org/'
     }
 
     this.setState({
@@ -1183,7 +1183,7 @@ export default class ZWallet extends React.Component {
       <Container>
         <Row>
           <Col>
-            <h1 className='display-6'>BitcoinZ Wallet&nbsp;
+            <h1 className='display-6'>BZEdge Wallet&nbsp;
               <ToolTipButton onClick={this.toggleShowSettings} id={1} buttonText={<MDSettings/>} tooltipText={'settings'}/>&nbsp;
               <ToolTipButton disabled={this.state.publicAddresses === null} onClick={this.resetKeys} id={2} buttonText={<FARepeat/>} tooltipText={'reset wallet'}/>
             </h1>
