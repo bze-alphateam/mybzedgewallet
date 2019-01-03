@@ -27616,7 +27616,7 @@ var ZNavbar = function (_React$Component) {
           _reactstrap.NavbarBrand,
           { href: '/' },
           _react2.default.createElement('img', { src: '/favicon.ico', height: 42 }),
-          '\xA0www.mybitcoinzwallet.com'
+          '\xA0wallet.getbze.com'
         ),
         _react2.default.createElement(
           _reactstrap.Collapse,
@@ -30691,7 +30691,7 @@ var ZFooter = function (_React$Component) {
                 _react2.default.createElement(
                   'b',
                   null,
-                  'WWW.MYBITCOINZWALLET.COM AND BOOKMARK IT'
+                  'WALLET.GETBZE.COM AND BOOKMARK IT'
                 )
               ),
               _react2.default.createElement(
@@ -30705,26 +30705,26 @@ var ZFooter = function (_React$Component) {
               { md: '4' },
               _react2.default.createElement(
                 'a',
-                { href: 'https://btcz.rocks/', target: '_blank' },
-                'website'
+                { href: 'https://getbze.com/', target: '_blank' },
+                'Website'
               ),
               _react2.default.createElement('br', null),
               _react2.default.createElement(
                 'a',
-                { href: 'https://bitcointalk.org/index.php?topic=2166510.0', target: '_blank' },
+                { href: 'https://bitcointalk.org/index.php?topic=5030236', target: '_blank' },
                 'ANN'
               ),
               _react2.default.createElement('br', null),
               _react2.default.createElement(
                 'a',
-                { href: 'https://github.com/egyptianbman/mybitcoinzwallet', target: '_blank' },
-                'github'
+                { href: 'https://github.com/BZEdge', target: '_blank' },
+                'Github'
               ),
               _react2.default.createElement('br', null),
               _react2.default.createElement(
                 'a',
-                { href: 'https://slack.btcz.rocks/', target: '_blank' },
-                'slack'
+                { href: 'https://discordapp.com/invite/K6sdMht', target: '_blank' },
+                'Discord'
               ),
               _react2.default.createElement('br', null)
             )
@@ -31126,7 +31126,7 @@ var ZFaq = function (_React$Component) {
                 'Q: How is this secure? Its on a web browser!'
               ),
               _react2.default.createElement('br', null),
-              'A: This wallet has replicated the core features of the BitcoinZ daemon in JavaScript! So the process of creating and signing the transactions are all done within the browser. No sensitive information is sent through the network.'
+              'A: This wallet has replicated the core features of the BZEdge daemon in JavaScript! So the process of creating and signing the transactions are all done within the browser. No sensitive information is sent through the network.'
             ),
             _react2.default.createElement(
               'p',
@@ -31140,7 +31140,7 @@ var ZFaq = function (_React$Component) {
               'A: ',
               _react2.default.createElement(
                 'a',
-                { href: 'https://github.com/egyptianbman/mybitcoinzwallet' },
+                { href: 'https://github.com/BZEdge/mybzedgewallet' },
                 'Here you go'
               )
             ),

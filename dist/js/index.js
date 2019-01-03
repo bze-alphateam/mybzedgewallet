@@ -34783,7 +34783,7 @@ var ZNavbar = function (_React$Component) {
           _reactstrap.NavbarBrand,
           { href: '/' },
           _react2.default.createElement('img', { src: '/favicon.ico', height: 42 }),
-          '\xA0www.mybitcoinzwallet.com'
+          '\xA0wallet.getbze.com'
         ),
         _react2.default.createElement(
           _reactstrap.Collapse,
@@ -38170,7 +38170,7 @@ var ZFooter = function (_React$Component) {
                 _react2.default.createElement(
                   'b',
                   null,
-                  'WWW.MYBITCOINZWALLET.COM AND BOOKMARK IT'
+                  'WALLET.GETBZE.COM AND BOOKMARK IT'
                 )
               ),
               _react2.default.createElement(
@@ -38184,26 +38184,26 @@ var ZFooter = function (_React$Component) {
               { md: '4' },
               _react2.default.createElement(
                 'a',
-                { href: 'https://btcz.rocks/', target: '_blank' },
-                'website'
+                { href: 'https://getbze.com/', target: '_blank' },
+                'Website'
               ),
               _react2.default.createElement('br', null),
               _react2.default.createElement(
                 'a',
-                { href: 'https://bitcointalk.org/index.php?topic=2166510.0', target: '_blank' },
+                { href: 'https://bitcointalk.org/index.php?topic=5030236', target: '_blank' },
                 'ANN'
               ),
               _react2.default.createElement('br', null),
               _react2.default.createElement(
                 'a',
-                { href: 'https://github.com/egyptianbman/mybitcoinzwallet', target: '_blank' },
-                'github'
+                { href: 'https://github.com/BZEdge', target: '_blank' },
+                'Github'
               ),
               _react2.default.createElement('br', null),
               _react2.default.createElement(
                 'a',
-                { href: 'https://slack.btcz.rocks/', target: '_blank' },
-                'slack'
+                { href: 'https://discordapp.com/invite/K6sdMht', target: '_blank' },
+                'Discord'
               ),
               _react2.default.createElement('br', null)
             )
@@ -51201,9 +51201,9 @@ var ZWalletUnlockKey = function (_React$Component3) {
               _react2.default.createElement(
                 _reactstrap.FormText,
                 { color: 'muted' },
-                'For Windows, it should be in %APPDATA%/bitcoinz',
+                'For Windows, it should be in %APPDATA%/bzedge',
                 _react2.default.createElement('br', null),
-                'For Mac/Linux, it should be in ~/.bitcoinz'
+                'For Mac/Linux, it should be in ~/.bzedge'
               )
             )
           )
@@ -51338,7 +51338,7 @@ var ZWalletSettings = function (_React$Component4) {
         _react2.default.createElement(
           _reactstrap.ModalHeader,
           { toggle: this.props.toggleShowSettings },
-          'BitcoinZ Wallet Settings'
+          'BZEdge Wallet Settings'
         ),
         _react2.default.createElement(
           _reactstrap.ModalBody,
@@ -51833,7 +51833,7 @@ var ZSendZEN = function (_React$Component6) {
           // If we don't have enough address
           // fail and tell user
           if (satoshisSoFar < satoshisToSend + satoshisfeesToSend) {
-            this.setSendErrorMessage('Not enough confirmed BTCZ in account to perform transaction');
+            this.setSendErrorMessage('Not enough confirmed BZE in account to perform transaction');
             this.setProgressValue(0);
           }
 
@@ -51885,7 +51885,7 @@ var ZSendZEN = function (_React$Component6) {
           _react2.default.createElement(
             'strong',
             null,
-            'BTCZ successfully sent!'
+            'BZE successfully sent!'
           ),
           ' ',
           _react2.default.createElement(
@@ -51946,7 +51946,7 @@ var ZSendZEN = function (_React$Component6) {
               _react2.default.createElement(
                 _reactstrap.Alert,
                 { color: 'danger' },
-                'ALWAYS VALIDATE YOUR DESINATION ADDRESS BY SENDING SMALL AMOUNTS OF BTCZ FIRST'
+                'ALWAYS VALIDATE YOUR DESINATION ADDRESS BY SENDING SMALL AMOUNTS OF BZE FIRST'
               ),
               _react2.default.createElement(
                 _reactstrap.InputGroup,
@@ -52002,7 +52002,7 @@ var ZSendZEN = function (_React$Component6) {
                   { check: true },
                   _react2.default.createElement(_reactstrap.Input, { onChange: this.handleCheckChanged, type: 'checkbox' }),
                   ' ',
-                  'Yes, I would like to send these BTCZ'
+                  'Yes, I would like to send these BZE'
                 )
               ),
               _react2.default.createElement('br', null),
@@ -52214,7 +52214,7 @@ var ZWalletTabs = function (_React$Component9) {
       var now = new Date();
       now = now.toISOString().split('.')[0] + 'Z';
 
-      var fileStr = '# Wallet dump created by myBitcoinZwallet ' + _package2.default.version + '\n';
+      var fileStr = '# Wallet dump created by myBZEdgeWallet ' + _package2.default.version + '\n';
       fileStr += '# Created on ' + now + '\n\n\n';
 
       Object.keys(this.props.publicAddresses).forEach(function (key) {
@@ -52224,7 +52224,7 @@ var ZWalletTabs = function (_React$Component9) {
       }.bind(this));
 
       var pkBlob = new Blob([fileStr], { type: 'text/plain;charset=utf-8' });
-      _fileSaver2.default.saveAs(pkBlob, now + '_mybitcoinzwallet_private_keys.txt');
+      _fileSaver2.default.saveAs(pkBlob, now + '_mybzedgewallet_private_keys.txt');
     }
   }, {
     key: 'render',
@@ -52262,7 +52262,7 @@ var ZWalletTabs = function (_React$Component9) {
                   _this15.toggleTabs('2');
                 }
               },
-              'Send BTCZ'
+              'Send BZE'
             )
           ),
           _react2.default.createElement(
@@ -52372,8 +52372,8 @@ var ZWallet = function (_React$Component10) {
         showSettings: false,
         showWalletGen: false,
         compressPubKey: true,
-        insightAPI: 'https://explorer.btcz.rocks/api/',
-        explorerURL: 'https://explorer.btcz.rocks/',
+        insightAPI: 'https://explorer.bzedge.org/insight-api-btcz/',
+        explorerURL: 'https://explorer.bzedge.org/',
         useTestNet: false,
         unlockType: UNLOCK_WALLET_TYPE.HD_WALLET
       }
@@ -52518,11 +52518,11 @@ var ZWallet = function (_React$Component10) {
       _settings.useTestNet = !_settings.useTestNet;
 
       if (_settings.useTestNet) {
-        _settings.insightAPI = 'https://explorer.btcz.rocks/insight-api-zcash/';
-        _settings.explorerURL = 'https://explorer.btcz.rocks/';
+        _settings.insightAPI = 'https://explorer.bzedge.org/insight-api-btcz/';
+        _settings.explorerURL = 'https://explorer.bzedge.org/';
       } else {
-        _settings.insightAPI = 'https://explorer.btcz.rocks/insight-api-zcash/';
-        _settings.explorerURL = 'https://explorer.btcz.rocks/';
+        _settings.insightAPI = 'https://explorer.bzedge.org/insight-api-btcz/';
+        _settings.explorerURL = 'https://explorer.bzedge.org/';
       }
 
       this.setState({
@@ -52564,7 +52564,7 @@ var ZWallet = function (_React$Component10) {
             _react2.default.createElement(
               'h1',
               { className: 'display-6' },
-              'BitcoinZ Wallet\xA0',
+              'BZEdge Wallet\xA0',
               _react2.default.createElement(ToolTipButton, { onClick: this.toggleShowSettings, id: 1, buttonText: _react2.default.createElement(_settings3.default, null), tooltipText: 'settings' }),
               '\xA0',
               _react2.default.createElement(ToolTipButton, { disabled: this.state.publicAddresses === null, onClick: this.resetKeys, id: 2, buttonText: _react2.default.createElement(_repeat2.default, null), tooltipText: 'reset wallet' })
