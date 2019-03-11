@@ -19,12 +19,12 @@ export default class ZNavbar extends React.Component {
   
   render () {
     return (
-      <Navbar color='faded' light toggleable>
-        <NavbarToggler right onClick={this.toggleNavbar} />
-        <NavbarBrand href='/'>
+      <Navbar color='faded' light>
+        <NavbarBrand href='/' >
           <img src="/favicon.ico" height={42}/>&nbsp;MyBZEdgeWallet
         </NavbarBrand>
-        <Collapse isOpen={this.state.isOpen} navbar>
+        <NavbarToggler onClick={this.toggleNavbar} />
+		  <Collapse isOpen={this.state.isOpen} navbar>
           <Nav className='ml-auto' navbar>
             <NavItem>
               <NavLink href='/faq.html'>
