@@ -22,6 +22,8 @@ import FAEye from 'react-icons/lib/fa/eye'
 
 import pjson from '../../package.json'
 
+const bip39 = require('bip39')
+
 // Throttled GET request to prevent unusable lag
 const throttledAxiosGet = zenwalletutils.promiseDebounce(axios.get, 1000, 5)
 
@@ -29,7 +31,8 @@ const throttledAxiosGet = zenwalletutils.promiseDebounce(axios.get, 1000, 5)
 var UNLOCK_WALLET_TYPE = {
   IMPORT_WALLET: 0,
   HD_WALLET: 1,
-  PASTE_PRIV_KEY: 2
+  PASTE_PRIV_KEY: 2,
+  IMPORT_COPAY: 3
 }
 
 // Components
@@ -118,6 +121,7 @@ class ZWalletUnlockKey extends React.Component {
     super(props)
 
     this.unlockHDWallet = this.unlockHDWallet.bind(this)
+    this.unlockCopayWallet = this.unlockCopayWallet.bind(this)
     this.loadWalletDat = this.loadWalletDat.bind(this)
     this.toggleShowPassword = this.toggleShowPassword.bind(this)
     this.unlockPrivateKeys = this.unlockPrivateKeys.bind(this)
@@ -125,6 +129,10 @@ class ZWalletUnlockKey extends React.Component {
     this.state = {
       showPassword: false,
       secretPhrase: '',
+      copayPhrase: '',
+      copayMaximum: 30,
+      copaySlip: 0,
+      copayAccount: 0,
       invalidPrivateKey: false,
       secretPhraseTooShort: false,
 
@@ -170,6 +178,51 @@ class ZWalletUnlockKey extends React.Component {
       })
     }
   }
+  
+  unlockCopayWallet() {
+	try {
+        var pks = [];
+        var account = parseInt(this.state.copayAccount);
+        var slip = parseInt(this.state.copaySlip);
+        if (this.state.copayPhrase.split(' ').length != 12) {
+          throw err;
+        }
+        
+        var seed = bip39.mnemonicToSeedSync(this.state.copayPhrase);
+		var network = bitcoinjs.networks['bze'];
+		var root = bitcoinjs.HDNode.fromSeedBuffer(seed, network)
+		
+        this.setState({
+          secretPhraseTooShort: false
+        });
+
+        var maximum = this.state.copayMaximum;
+        if (maximum > 250) {
+          maximum = 250;
+        }
+        
+        //receive addresses
+        for (var k = 0; k < maximum; k++) {
+          var child = root.deriveHardened(44).deriveHardened(slip).deriveHardened(account).derive(0).derive(k);
+          
+          var wif = child.keyPair.toWIF();
+          pks.push(wif);
+        }
+
+        //change addresses
+        for (var _k = 0; _k < maximum; _k++) {
+          var _child = root.deriveHardened(44).deriveHardened(slip).deriveHardened(account).derive(1).derive(_k);
+          var _wif = _child.keyPair.toWIF();
+          pks.push(_wif);
+        }
+
+        this.props.setPrivateKeys(pks, true);
+	} catch (err) {
+        this.setState({
+          secretPhraseTooShort: true
+        });
+      }
+    }
 
   loadWalletDat(e){
     var reader = new FileReader()
@@ -280,6 +333,54 @@ class ZWalletUnlockKey extends React.Component {
         </div>
       )
     }
+    
+    else if (this.props.unlockType == UNLOCK_WALLET_TYPE.IMPORT_COPAY){
+      return (
+        <div>
+			<Alert color="warning"><strong><span className="wallet1">Warning.</span></strong><span className="wallet2">Only 30 change addresses and 30 receiving addresses are generated with maximum up to 250. If you think your Copay used more, contact BZEdge Alpha team. You can find out specific number of addresses needed in Settings -> specific wallet -> More options -> Wallet addresses. Look for the highest NUMBER in xpub/0/NUMBER or m/0/NUMBER. You can also change account number if you had more copay accounts</span></Alert>
+			{this.state.secretPhraseTooShort ? <Alert color="danger"><strong><span className="import1">Error.</span></strong>&nbsp;<span className="wallet3">Invalid Copay recovery phrase. Recovery phrase shall contain 12 words separated with single space.</span></Alert> : '' }
+			<InputGroup>
+				<InputGroupAddon addonType="prepend">Copay recovery phrase</InputGroupAddon>
+				<Input
+				  type="text"
+				  onChange={(e) => this.setState({ copayPhrase: e.target.value })}
+				  placeholder="e.g. ketchup seven good shove victory robust spirit airport enrich auction spoon raw"
+				/>
+			</InputGroup>
+			<InputGroup>
+				<InputGroupAddon addonType="prepend">Maximum NUMBER of addresses</InputGroupAddon>
+				<Input
+				  type="number"
+				  max="30"
+				  onChange={(e) => this.setState({ copayMaximum: e.target.value })}
+				  value={this.state.copayMaximum}
+				/>
+			</InputGroup>
+			<InputGroup>
+				<InputGroupAddon addonType="prepend">Account Number (usually 0)</InputGroupAddon>
+				<Input
+				  type="number"
+				  onChange={(e) => this.setState({ copayAccount: e.target.value })}
+				  value={this.state.copayAccount}
+				/>
+			</InputGroup>
+			<InputGroup>
+				<InputGroupAddon addonType="prepend">Slip Number (usually 0)</InputGroupAddon>
+				<Input
+				  type="number"
+				  onChange={(e) => this.setState({ copaySlip: e.target.value })}
+				  value={this.state.copaySlip}
+				/>
+			</InputGroup>
+			<div style={{paddingTop: '8px'}}>
+				<Button color="secondary" className="btn-block" onClick={this.unlockCopayWallet}>Generate/Unlock Copay Wallet</Button>
+			</div>
+        </div>
+      )
+    }
+    
+    
+    
   }
 }
 
@@ -890,6 +991,7 @@ class ZWalletSelectUnlockType extends React.Component {
           <Button color="secondary" onClick={() => this.onRadioBtnClick(UNLOCK_WALLET_TYPE.HD_WALLET)} active={this.state.cSelected === UNLOCK_WALLET_TYPE.HD_WALLET}>Enter secret phrase</Button>
           <Button color="secondary" onClick={() => this.onRadioBtnClick(UNLOCK_WALLET_TYPE.IMPORT_WALLET)} active={this.state.cSelected === UNLOCK_WALLET_TYPE.IMPORT_WALLET}>Load wallet.dat</Button>
           <Button color="secondary" onClick={() => this.onRadioBtnClick(UNLOCK_WALLET_TYPE.PASTE_PRIV_KEY)} active={this.state.cSelected === UNLOCK_WALLET_TYPE.PASTE_PRIV_KEY}>Paste private key</Button>
+          <Button color="secondary" onClick={() => this.onRadioBtnClick(UNLOCK_WALLET_TYPE.IMPORT_COPAY)} active={this.state.cSelected === UNLOCK_WALLET_TYPE.IMPORT_COPAY}>Enter Copay recovery phrase (12 words)</Button>
         </ButtonGroup>
       </div>
     )
